@@ -1,4 +1,4 @@
-# myCinema project
+# myChessApp project
 ![Header Image](src/main/resources/imgs/main_page.png)
 ## Project purpose
 ### For real purpose
