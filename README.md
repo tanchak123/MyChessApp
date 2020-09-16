@@ -23,7 +23,7 @@
 
 ## Available Functions
 
-#### Choose Figure
+### Choose Figure
 ![imagine](src/main/resources/imgs/ChooseFigure.bmp)
 * Show available steps 
 ### Draw
