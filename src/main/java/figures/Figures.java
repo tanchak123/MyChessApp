@@ -19,11 +19,12 @@ public enum Figures {
     VICTORYRB("/imgs/sadPawnRB.png"),
     VICTORYLW("/imgs/afraidQueenLW.png"),
     VICTORYRW("/imgs/afraidQueenRW.png"),
-    VICTORYB("/imgs/black king win.png");
+    VICTORYB("/imgs/black king win.png"),
+    DRAW("/imgs/draw.png");
 
     private String url;
-    Figures(String i) {
-        url = i;
+    Figures(String url) {
+        this.url = url;
     }
 
     public String getUrl() {

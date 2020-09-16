@@ -9,6 +9,10 @@ public interface ChessFieldCreation extends Field {
 
     void createBottom(Figures figure, int x, int y, ActionListener actionListener);
 
+    void clearField();
+
+    void playSound(String url);
+
     ImageIcon createIcon(Figures figure);
 
     String switcher(int i);

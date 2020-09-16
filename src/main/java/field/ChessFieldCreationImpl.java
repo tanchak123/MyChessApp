@@ -1,6 +1,7 @@
 package field;
 
 import action.Action;
+import action.Draw;
 import action.NewGameAction;
 import figures.Figures;
 import java.awt.Color;
@@ -8,9 +9,14 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import sounds.Sounds;
 
 public class ChessFieldCreationImpl extends JPanel implements ChessFieldCreation {
     private JButton b1;
@@ -23,9 +29,18 @@ public class ChessFieldCreationImpl extends JPanel implements ChessFieldCreation
     public void gameField() {
         setLayout(null);
         b1 = new JButton("New Game");
+        b1.setFont(ChessField.getFont());
         b1.addActionListener(new NewGameAction(this));
         b1.setBounds(0, ChessField.getMax() + 100,
-                ChessField.getMax() + 100, ChessField.getHeight());
+                (ChessField.getMax() + 100) / 2, ChessField.getHeight());
+        b1.setBackground(Color.pink);
+        add(b1);
+        b1 = new JButton("Draw");
+        b1.setFont(ChessField.getFont());
+        b1.addActionListener(new Draw(this));
+        b1.setBounds((ChessField.getMax() + 100) / 2, ChessField.getMax() + 100,
+                (ChessField.getMax() + 100) / 2, ChessField.getHeight());
+        b1.setBackground(Color.pink);
         add(b1);
         int zero = 0;
         while (zero < ChessField.getMax() + 100) {
@@ -116,5 +131,52 @@ public class ChessFieldCreationImpl extends JPanel implements ChessFieldCreation
         target.setIcon(copy.getIcon());
         target.setName(copy.getName());
         return target;
+    }
+
+    public void clearField() {
+        ChessField.setBlack(false);
+        ChessField.setStep(false);
+        ChessField.setTurnW(true);
+        Clip clip = ChessField.getMusic();
+        if (clip != null) {
+            clip.stop();
+            clip.close();
+        }
+        this.removeAll();
+        revalidate();
+        repaint();
+    }
+
+    public void createWinnerBanner(String name, int x, int y) {
+        JLabel imagine = null;
+        try {
+            imagine = new JLabel(new ImageIcon(ImageIO.read(getClass().getResource(name))));
+            imagine.setSize(imagine.getPreferredSize());
+            imagine.setLocation(x,y);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        add(imagine);
+    }
+
+    public void playSound(String url) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    Clip clip = AudioSystem.getClip();
+
+                    AudioInputStream inputStream = AudioSystem.getAudioInputStream(
+                            getClass().getResource(url));
+                    clip.open(inputStream);
+                    clip.flush();
+                    clip.start();
+                    if (url.equals(Sounds.VICTORY.getUrl())) {
+                        ChessField.setMusic(clip);
+                    }
+                } catch (Exception e) {
+                    System.err.println(e.getMessage());
+                }
+            }
+        }).start();
     }
 }

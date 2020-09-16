@@ -12,6 +12,8 @@
 * Interfaces Implementation
 * An attempt to abide by DRY and SOLID principles
 * Practice with sound and pictures
+* Threads
+* Swing
 
 ## Project structure
 * Apache Maven CheckStyle Plugin 3.1.1
@@ -21,12 +23,15 @@
 
 ## Available Functions
 
-* Step
-* Restart
+#### Choose Figure
+![imagine](src/main/resources/imgs/ChooseFigure.bmp)
+* Show available steps 
+### Draw
+### Restart
 
 ## Future Available Functions
 
-* Draw
+* Artificial intelligence
 
 ## Author
 

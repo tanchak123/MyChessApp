@@ -1,6 +1,7 @@
 package field;
 
 import java.awt.Font;
+import javax.sound.sampled.Clip;
 
 public class ChessField {
     private static final Font FONT = new Font("SanSerif", Font.BOLD, 20);
@@ -10,8 +11,17 @@ public class ChessField {
     private static boolean black = false;
     private static boolean turnW = true;
     private static boolean step = false;
+    private static Clip music;
 
     public ChessField() {
+    }
+
+    public static Clip getMusic() {
+        return music;
+    }
+
+    public static void setMusic(Clip music) {
+        ChessField.music = music;
     }
 
     public static Font getFont() {
